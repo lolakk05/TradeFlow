@@ -1,5 +1,7 @@
+import get_data.getData;
+
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello, TraderFlow!");
+        getData.downloadData();
     }
 }
