@@ -1,2 +1,2 @@
 # TradeFlow
-Final procjekt for Structural and OOP course of Applied Computer Science at PWr
+Final project for the Structured and Object-Oriented Programming course. Applied Computer Science, Wroclaw University of Science and Technology (PWr).
