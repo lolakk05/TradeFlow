@@ -22,7 +22,7 @@ public class getData {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
+            proccessJson.parseJson(response.body());
         }
         catch (Exception e) {
             e.printStackTrace();
