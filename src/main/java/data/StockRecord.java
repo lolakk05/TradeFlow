@@ -1,20 +1,24 @@
 package data;
 
-public class StockRecord {
+import java.io.Serializable;
+
+public class StockRecord implements Serializable {
     private String symbol;
     private String date;
     private double open;
     private double high;
     private double low;
     private double close;
+    private double volume;
 
-    StockRecord(String symbol, String date, double open, double high, double low, double close) {
+    StockRecord(String symbol, String date, double open, double high, double low, double close, double volume) {
         this.symbol = symbol;
         this.date = date;
         this.open = open;
         this.high = high;
         this.low = low;
         this.close = close;
+        this.volume = volume;
     }
 
     public String getSymbol() {
@@ -63,6 +67,14 @@ public class StockRecord {
 
     public void setClose(double close) {
         this.close = close;
+    }
+
+    public double getVolume() {
+        return volume;
+    }
+
+    public void setVolume(double volume) {
+        this.volume = volume;
     }
 
     @Override
