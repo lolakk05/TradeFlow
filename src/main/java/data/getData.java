@@ -16,15 +16,14 @@ public class getData {
         String apiKey = dotenv.get("API_KEY").trim();
         String symbol = "BTC";
 
-        String url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
-                + symbol + "&outputsize=compact&apikey=" + apiKey + "&datatype=json";
+        String url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol="
+                + symbol + "&market=USD&apikey=" + apiKey;
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).GET().build();
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
             records = proccessJson.parseJson(response.body(), symbol);
         }
         catch (Exception e) {

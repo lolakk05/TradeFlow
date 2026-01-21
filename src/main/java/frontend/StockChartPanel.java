@@ -29,13 +29,9 @@ public class StockChartPanel extends JPanel {
         this.repo =  new RepositoryData();
         ArrayList<StockRecord> stockRecords = new ArrayList<>();
 
-        if(repo.load().isEmpty()) {
+
             stockRecords = data.getData.downloadData();
             repo.upload(stockRecords);
-        }
-        else {
-            stockRecords = repo.load();
-        }
 
         this.setLayout(new BorderLayout());
 
@@ -77,8 +73,6 @@ public class StockChartPanel extends JPanel {
 
     public OHLCDataset createDataset(ArrayList<StockRecord> stockRecords) {
         int size = stockRecords.size();
-
-        System.out.println("Tworzenie datasetu dla " + size + " rekordów.");
 
         Date[] dates = new Date[size];
         double[] opens = new double[size];

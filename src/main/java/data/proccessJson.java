@@ -12,9 +12,13 @@ public class proccessJson {
         JsonObject jsonObject = JsonParser.parseString(jsonData).getAsJsonObject();
         ArrayList<StockRecord> stockRecords = new ArrayList<>();
 
-        JsonObject timeSeries = jsonObject.getAsJsonObject("Time Series (Daily)");
-        if (timeSeries == null) {
-            System.out.println("Time Series data not found in the JSON response.");
+        JsonObject timeSeries = null;
+        if (jsonObject.has("Time Series (Digital Currency Daily)")) {
+            timeSeries = jsonObject.getAsJsonObject("Time Series (Digital Currency Daily)");
+        } else if (jsonObject.has("Time Series (Daily)")) {
+            timeSeries = jsonObject.getAsJsonObject("Time Series (Daily)");
+        } else {
+            System.err.println("Błąd: Nie znaleziono danych Time Series. Sprawdź limit zapytań API.");
             return stockRecords;
         }
 
@@ -33,10 +37,10 @@ public class proccessJson {
             stockRecords.add(new StockRecord(symbol, date, open, high, low, close, volume));
 
             counter++;
-            RepositoryData repo =  new RepositoryData();
-            Collections.reverse(stockRecords);
-            repo.upload(stockRecords);
         }
+        RepositoryData repo =  new RepositoryData();
+        Collections.reverse(stockRecords);
+        repo.upload(stockRecords);
         return stockRecords;
     }
 }
