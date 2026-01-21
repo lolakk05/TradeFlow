@@ -8,13 +8,12 @@ import java.util.ArrayList;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-public class getData {
-    public static ArrayList<StockRecord> downloadData() {
+public class GetData {
+    public static ArrayList<StockRecord> downloadData(String symbol) {
         Dotenv dotenv = Dotenv.load();
         ArrayList<StockRecord> records = new ArrayList<>();
 
         String apiKey = dotenv.get("API_KEY").trim();
-        String symbol = "BTC";
 
         String url = "https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol="
                 + symbol + "&market=USD&apikey=" + apiKey;
@@ -24,7 +23,7 @@ public class getData {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            records = proccessJson.parseJson(response.body(), symbol);
+            records = ProccessJson.parseJson(response.body(), symbol);
         }
         catch (Exception e) {
             e.printStackTrace();
