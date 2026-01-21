@@ -4,12 +4,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class getData {
-    public static void downloadData() {
+    public static ArrayList<StockRecord> downloadData() {
         Dotenv dotenv = Dotenv.load();
+        ArrayList<StockRecord> records = new ArrayList<>();
 
         String apiKey = dotenv.get("API_KEY").trim();
         String symbol = "BTC";
@@ -22,10 +24,12 @@ public class getData {
 
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            proccessJson.parseJson(response.body());
+            System.out.println(response.body());
+            records = proccessJson.parseJson(response.body(), symbol);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+        return records;
     }
 }
