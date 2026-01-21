@@ -18,6 +18,7 @@ import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class StockChartPanel extends JPanel {
@@ -29,9 +30,14 @@ public class StockChartPanel extends JPanel {
         this.repo =  new RepositoryData();
         ArrayList<StockRecord> stockRecords = new ArrayList<>();
 
-
+        if(repo.load().isEmpty()) {
             stockRecords = data.getData.downloadData();
             repo.upload(stockRecords);
+        }
+        else {
+            stockRecords =  repo.load();
+            Collections.reverse(stockRecords);
+        }
 
         this.setLayout(new BorderLayout());
 
